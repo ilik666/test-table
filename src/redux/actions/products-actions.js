@@ -15,17 +15,9 @@ const fetchSuccessProducts = (products) => ({
 	payload: products
 })
 
-const fetchProducts = (getServices, dispatch) => () => {
-	dispatch(fetchRequestProducts)
-	getServices.getProducts()
-		.then(data => dispatch(fetchSuccessProducts(data)))
-		.then(err => dispatch(fetchFailProducts(err)))
-
-}
 
 export {
 	fetchRequestProducts,
 	fetchFailProducts,
-	fetchSuccessProducts,
-	fetchProducts
+	fetchSuccessProducts
 }

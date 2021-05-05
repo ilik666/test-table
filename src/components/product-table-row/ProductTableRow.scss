@@ -1,0 +1,10 @@
+.table {
+  //counter-reset: rows;
+  td {
+    vertical-align: middle;
+    //&:first-child:before {
+    //  counter-increment: rows;
+    //  content: counter(rows);
+    //}
+  }
+}

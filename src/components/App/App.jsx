@@ -1,9 +1,12 @@
-import React from 'react'
 import './App.css';
+import {ProductTables} from "../product-table/ProductTable";
+import {Header} from "../header/Header";
 
-export function App() {
+export const App = () => {
   return (
-    <div className="App">
+    <div className="container">
+			<Header />
+			<ProductTables />
     </div>
   );
 }
