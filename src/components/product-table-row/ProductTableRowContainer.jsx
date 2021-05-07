@@ -1,7 +1,7 @@
 import {ProductTableRow} from "./ProductTableRow";
 import {ModalDeleteProduct} from "../modals/Modal-delete-product";
 
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteProduct} from "../../redux/products/products-actions";
 
@@ -13,9 +13,9 @@ export const ProductTableRowContainer = ({id, price, ...property}) => {
 	const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
 	const dispatch = useDispatch()
 
-	const openDeleteModal = () => {
+	const openDeleteModal = useCallback( () => {
 		setVisibleDeleteModal(v => !v)
-	}
+	}, [setVisibleDeleteModal])
 
 	const handleDeleteProduct = () => {
 		dispatch(deleteProduct(id))
