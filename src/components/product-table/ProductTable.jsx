@@ -8,7 +8,6 @@ import {ProductTableRowContainer} from "../product-table-row/ProductTableRowCont
 
 export const ProductTables = () => {
 	const dispatch = useDispatch()
-
 	const {products, isLoading} = useSelector(({productsReducer}) => productsReducer)
 
 	useEffect(() => {
@@ -29,7 +28,11 @@ export const ProductTables = () => {
 			</tr>
 			</thead>
 			<tbody>
-			{products.map((el, idx) => (<ProductTableRowContainer key={el.id} {...el} idx={idx + 1} />))}
+			{
+				products.map((el, idx) => (
+					<ProductTableRowContainer key={el.id} idx={idx + 1} {...el} />)
+				)
+			}
 			</tbody>
 		</table>
 	)

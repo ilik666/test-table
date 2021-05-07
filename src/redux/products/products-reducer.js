@@ -29,7 +29,6 @@ const updateProduct = (products, product, idx) => {
 
 const updateStateProducts = (products, product) => {
 	const idx = products.findIndex(({id}) => id === product.id)
-
 	return updateProduct(products, product, idx)
 }
 

@@ -6,7 +6,6 @@ import {
 	DELETE_PRODUCT
 } from './types'
 
-// Actions
 const fetchRequestProducts = {type: FETCH_PRODUCTS_REQUEST}
 
 const fetchFailProducts = (err) => ({
@@ -30,7 +29,10 @@ const deleteProduct = (id) => ({
 	payload: id
 })
 
-// Async Actions
+/*
+*  Async Actions
+*/
+
 // const fetchProducts = (getProducts) => (dispatch) => {
 // 	dispatch(fetchRequestProducts)
 // 	getProducts()
@@ -38,7 +40,7 @@ const deleteProduct = (id) => ({
 // 		.catch(err => dispatch(fetchFailProducts(err)))
 // }
 
-const  fetchProducts = (getProducts) => async (dispatch) => {
+const fetchProducts = (getProducts) => async (dispatch) => {
 	dispatch(fetchRequestProducts)
 	try {
 		const response = await getProducts()
