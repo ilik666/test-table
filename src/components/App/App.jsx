@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import {ProductTables} from "../product-table/ProductTable";
 import {Header} from "../header/Header";
 

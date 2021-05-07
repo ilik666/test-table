@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 
-import {fetchProducts} from "../../redux/asyncActions/asyncActions";
+import {fetchProducts} from "../../redux/products/products-actions";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getProducts} from "../../services/products-services";
