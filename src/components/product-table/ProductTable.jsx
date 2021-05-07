@@ -4,7 +4,7 @@ import {fetchProducts} from "../../redux/products/products-actions";
 import {useDispatch, useSelector} from "react-redux";
 
 import {getProducts} from "../../services/products-services";
-import {ProductTableRow} from "../product-table-row/ProductTableRow";
+import {ProductTableRowContainer} from "../product-table-row/ProductTableRowContainer";
 
 export const ProductTables = () => {
 	const dispatch = useDispatch()
@@ -29,7 +29,7 @@ export const ProductTables = () => {
 			</tr>
 			</thead>
 			<tbody>
-			{products.map((el, idx) => (<ProductTableRow key={el.id} {...el} idx={idx} />))}
+			{products.map((el, idx) => (<ProductTableRowContainer key={el.id} {...el} idx={idx + 1} />))}
 			</tbody>
 		</table>
 	)

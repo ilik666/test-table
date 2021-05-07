@@ -2,12 +2,13 @@
 
 import {useEffect, useState} from "react";
 
-export const useGetPriceFormat =  (initialState = false) => {
+export const useGetPriceFormat =  (initialState) => {
 	const [priceFormat, setPriceFormat] = useState(initialState);
 
 	const refreshFormatPrice = (price) => {
-		const newFormatPrice = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(price)
-		setPriceFormat(newFormatPrice)
+		const newFormatPrice = new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'})
+
+		setPriceFormat(newFormatPrice.format(price))
 	}
 
 	useEffect( () => {
