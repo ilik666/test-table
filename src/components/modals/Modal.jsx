@@ -1,4 +1,4 @@
-import Portal from "../Portal/Portal";
+import Portal from "../portal/Portal";
 
 import './Modal.scss'
 import { useRef} from "react";

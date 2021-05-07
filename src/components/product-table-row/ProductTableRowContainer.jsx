@@ -1,30 +1,31 @@
 import {ProductTableRow} from "./ProductTableRow";
-import {ModalDeleteContent} from "../Modal/Modal-delete-content";
+import {ModalDeleteProduct} from "../modals/Modal-delete-product";
 
-import {useGetPriceFormat} from "../../hooks/useGetPriceFormat";
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {useDispatch} from "react-redux";
 import {deleteProduct} from "../../redux/products/products-actions";
+
+import { refreshFormatPrice } from "../../helpers/helpers";
 
 import './ProductTableRow.scss'
 
 export const ProductTableRowContainer = ({id, price, ...property}) => {
 	const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
-	const [formatPrice] = useGetPriceFormat(price)
 	const dispatch = useDispatch()
 
-	const openDeleteModal = useCallback( () => {
-		setVisibleDeleteModal( v => !v )
-	}, [setVisibleDeleteModal])
+	const openDeleteModal = () => {
+		setVisibleDeleteModal(v => !v)
+	}
 
-	const handleDeleteProduct = useCallback( () => {
+	const handleDeleteProduct = () => {
 		dispatch(deleteProduct(id))
-	}, [id, dispatch])
+	}
 
 	return (
 		<>
-			<ModalDeleteContent isOpen={visibleDeleteModal} onCancel={setVisibleDeleteModal} deleteProduct={handleDeleteProduct}/>
-			<ProductTableRow {...property} price={formatPrice} openDeleteModal={openDeleteModal}/>
+			<ModalDeleteProduct isOpen={visibleDeleteModal} onCancel={setVisibleDeleteModal}
+													deleteProduct={handleDeleteProduct}/>
+			<ProductTableRow {...property} price={refreshFormatPrice(price)} openDeleteModal={openDeleteModal}/>
 		</>
 	)
 }

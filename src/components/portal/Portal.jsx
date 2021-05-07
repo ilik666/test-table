@@ -8,10 +8,12 @@ export default class Portal extends Component {
 
 	componentDidMount() {
 		document.body.appendChild(this.el)
+		document.body.classList.add('show-modal')
 	}
 
 	componentWillUnmount() {
 		document.body.removeChild(this.el)
+		document.body.classList.remove('show-modal')
 	}
 
 	render() {

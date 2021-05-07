@@ -1,6 +1,6 @@
 import {Modal} from "./Modal";
 
-export const ModalDeleteContent = ({isOpen, onCancel, deleteProduct}) => {
+export const ModalDeleteProduct = ({isOpen, onCancel, deleteProduct}) => {
 	const handleVisibleModal = () => {
 		onCancel( v => !v)
 	}
