@@ -1,7 +1,7 @@
 import React from 'react'
 import './ProductTableRow.scss'
 
-export const ProductTableRow = React.memo( ({idx, name, count, price, openUpdateProduct, openDeleteModal}) => {
+export const ProductTableRow = React.memo( ({idx, name, count, price, toggleUpdateProduct, toggleDeleteModal}) => {
 	return (
 		<tr>
 			<td> {idx} </td>
@@ -13,8 +13,8 @@ export const ProductTableRow = React.memo( ({idx, name, count, price, openUpdate
 			</td>
 			<td> {price} </td>
 			<td>
-				<button className='btn btn-success mr-2' onClick={openUpdateProduct}>Edit</button>
-				<button className='btn btn-danger' onClick={openDeleteModal}>Delete</button>
+				<button className='btn btn-success mr-2' onClick={toggleUpdateProduct}>Edit</button>
+				<button className='btn btn-danger' onClick={toggleDeleteModal}>Delete</button>
 			</td>
 		</tr>
 	)

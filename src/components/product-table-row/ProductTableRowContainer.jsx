@@ -13,7 +13,7 @@ export const ProductTableRowContainer = ({id, price, ...property}) => {
 	const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
 	const dispatch = useDispatch()
 
-	const openDeleteModal = useCallback( () => {
+	const toggleDeleteModal = useCallback( () => {
 		setVisibleDeleteModal(v => !v)
 	}, [setVisibleDeleteModal])
 
@@ -23,9 +23,9 @@ export const ProductTableRowContainer = ({id, price, ...property}) => {
 
 	return (
 		<>
-			<ModalDeleteProduct isOpen={visibleDeleteModal} onCancel={setVisibleDeleteModal}
+			<ModalDeleteProduct isOpen={visibleDeleteModal} onCancel={toggleDeleteModal}
 													deleteProduct={handleDeleteProduct}/>
-			<ProductTableRow {...property} price={refreshFormatPrice(price)} openDeleteModal={openDeleteModal}/>
+			<ProductTableRow {...property} price={refreshFormatPrice(price)} toggleDeleteModal={toggleDeleteModal}/>
 		</>
 	)
 }
