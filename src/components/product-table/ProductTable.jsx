@@ -33,21 +33,23 @@ export const ProductTables = () => {
 	}
 
 	const filterItems = useCallback((arr, paramFilter = 'search') => {
+
 		const searchLocationURL = new URLSearchParams(search)
 		const searchParam = searchLocationURL.get(paramFilter)
-		if(search.length === 0) {
+		const regExp = /search=(\w+)/gmi
+
+		if(!search.match(regExp)) {
 			setViewProducts(arr)
 			return
 		}
 
-		const searchSortItems = arr.filter( item => item?.name.toLowerCase().includes(searchParam.toLowerCase()))
+		const searchSortItems = arr.filter( item => item?.name?.toLowerCase()?.includes(searchParam?.toLowerCase()))
 		setViewProducts(searchSortItems)
 	}, [search])
 
 
 	const togglePropertyProducts = (e) => {
 		const targetProperty = e.target.dataset?.sort
-
 		sortItemsByProperty(viewProducts, targetProperty)
 
 		setSortProperty(prevProps => {

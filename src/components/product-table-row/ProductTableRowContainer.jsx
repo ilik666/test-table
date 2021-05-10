@@ -1,31 +1,39 @@
 import {ProductTableRow} from "./ProductTableRow";
 import {ModalDeleteProduct} from "../modals/Modal-delete-product";
 
-import {useCallback, useState} from "react";
 import {useDispatch} from "react-redux";
-import {deleteProduct} from "../../redux/products/products-actions";
+import {deleteProduct, updateProduct} from "../../redux/products/products-actions";
 
-import { refreshFormatPrice } from "../../helpers/helpers";
+import {refreshFormatPrice} from "../../helpers/helpers";
 
 import './ProductTableRow.scss'
+import {ModalUpdateProduct} from "../modals/Modal-update-product";
+import {useToggle} from "../../hooks/useToggle";
+import {useCallback} from "react";
 
 export const ProductTableRowContainer = ({id, price, ...property}) => {
-	const [visibleDeleteModal, setVisibleDeleteModal] = useState(false)
+	const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false)
+	const [visibleDeleteModal, setVisibleDeleteModal] = useToggle(false)
+
 	const dispatch = useDispatch()
 
-	const toggleDeleteModal = useCallback( () => {
-		setVisibleDeleteModal(v => !v)
-	}, [setVisibleDeleteModal])
+	const submitUpdateProduct = useCallback((product) => {
+		dispatch(updateProduct(product))
+	}, [dispatch, id])
 
-	const handleDeleteProduct = () => {
+	const handleDeleteProduct = useCallback(() => {
 		dispatch(deleteProduct(id))
-	}
+	}, [dispatch, id])
 
 	return (
 		<>
-			<ModalDeleteProduct isOpen={visibleDeleteModal} onCancel={toggleDeleteModal}
+			<ModalUpdateProduct submitUpdateProduct={submitUpdateProduct}
+													isOpen={visibleUpdateModal} onCancel={setVisibleUpdateModal} {...property} price={price}
+													id={id}/>
+			<ModalDeleteProduct isOpen={visibleDeleteModal} onCancel={setVisibleDeleteModal}
 													deleteProduct={handleDeleteProduct}/>
-			<ProductTableRow {...property} price={refreshFormatPrice(price)} toggleDeleteModal={toggleDeleteModal}/>
+			<ProductTableRow {...property} price={refreshFormatPrice(price)} toggleUpdateProduct={setVisibleUpdateModal}
+											 toggleDeleteModal={setVisibleDeleteModal}/>
 		</>
 	)
 }

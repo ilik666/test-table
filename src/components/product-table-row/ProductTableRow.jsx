@@ -6,7 +6,7 @@ export const ProductTableRow = React.memo( ({idx, name, count, price, toggleUpda
 		<tr>
 			<td> {idx} </td>
 			<td className='td-name'>
-				{name}
+				<span  onClick={toggleUpdateProduct}>{name}</span>
 				<span className='ml-3 badge badge-primary badge-pill'>
 					 {count}
 				 </span>

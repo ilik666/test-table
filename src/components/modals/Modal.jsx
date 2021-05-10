@@ -1,13 +1,12 @@
+import {useRef} from "react";
 import Portal from "../portal/Portal";
 
 import './Modal.scss'
-import { useRef} from "react";
-import {useOnClickOutside} from "../../hooks/useOnClickOutside";
+// import {useOnClickOutside} from "../../hooks/useOnClickOutside";
 
-export const Modal = ({isOpen, onCancel, onSubmit, title, children}) => {
+export const Modal = ({isOpen, onCancel, isOutside = false, onSubmit, title, children}) => {
 	const refContainer = useRef()
-	useOnClickOutside(refContainer, onCancel)
-
+	// useOnClickOutside(refContainer, onCancel)
 	return (
 		<>
 			{
