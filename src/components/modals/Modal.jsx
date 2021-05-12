@@ -1,30 +1,37 @@
-import {useRef} from "react";
-import Portal from "../portal/Portal";
+import {useRef} from 'react';
+import Portal from '../portal/Portal';
 
-import './Modal.scss'
+import './Modal.scss';
 // import {useOnClickOutside} from "../../hooks/useOnClickOutside";
 
-export const Modal = ({isOpen, onCancel, isOutside = false, onSubmit, title, children}) => {
-	const refContainer = useRef()
-	// useOnClickOutside(refContainer, onCancel)
-	return (
-		<>
-			{
-				isOpen && <Portal>
-					<div className='modal-overlay'>
-						<div className="modal-container" ref={refContainer}>
-							<div className="modal-header">
-								<h5 className='modal-title'>{title}</h5>
-								<button onClick={onCancel}>&times;</button>
-							</div>
-							<div className="modal-body">
-								{children}
-							</div>
-						</div>
-					</div>
-				</Portal>
-			}
-		</>
-	)
-}
+export const Modal = ({
+    isOpen,
+    onCancel,
+    isOutside = false,
+    onSubmit,
+    title,
+    children,
+}) => {
+    const refContainer = useRef();
+    // useOnClickOutside(refContainer, onCancel)
+    return (
+        <>
+            {
+                isOpen && <Portal>
+                    <div className="modal-overlay">
+                        <div className="modal-container" ref={refContainer}>
+                            <div className="modal-header">
+                                <h5 className="modal-title">{title}</h5>
+                                <button onClick={onCancel}>&times;</button>
+                            </div>
+                            <div className="modal-body">
+                                {children}
+                            </div>
+                        </div>
+                    </div>
+                </Portal>
+            }
+        </>
+    );
+};
 
