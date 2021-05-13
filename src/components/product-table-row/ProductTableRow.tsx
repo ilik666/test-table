@@ -1,8 +1,10 @@
 import React from 'react';
 import './ProductTableRow.scss';
 
+import { IProductViewRow } from '../../redux/products/types'
+
 export const ProductTableRow = React.memo(
-    ({idx, name, count, price, toggleUpdateProduct, toggleDeleteModal}) => {
+    ({idx, name, count, price, toggleUpdateProduct, toggleDeleteModal}: IProductViewRow) => {
         return (
             <tr>
                 <td> {idx} </td>

@@ -13,11 +13,21 @@ export interface IProduct {
   price: number
 
 }
+export interface IProductViewRow extends IProduct {
+  idx: number
+  toggleUpdateProduct: () => void
+  toggleDeleteModal: () => void
+}
 
 export interface IProductsState {
   products: IProduct[] | []
   isLoading: boolean
   isError: null | ErrorConstructor
+}
+
+
+export interface ISortProperty<T> {
+  [key: string]: T
 }
 
 type TFetchRequest = {
