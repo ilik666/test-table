@@ -7,4 +7,9 @@ import { productsReducer } from "./products/products-reducer";
 
 const rootReducers = combineReducers({ productsReducer })
 
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
 export const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(thunk)))
+
+
