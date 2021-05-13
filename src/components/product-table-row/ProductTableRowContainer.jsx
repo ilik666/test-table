@@ -22,7 +22,7 @@ export const ProductTableRowContainer = ({id, price, ...property}) => {
 
     const submitUpdateProduct = useCallback((product) => {
         dispatch(updateProduct(product));
-    }, [dispatch, id]);
+    }, [dispatch]);
 
     const handleDeleteProduct = useCallback(() => {
         dispatch(deleteProduct(id));

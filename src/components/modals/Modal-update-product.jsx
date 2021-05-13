@@ -8,13 +8,13 @@ import {InputField} from '../forms-controls/InputField';
 // Или хранить за пределами Компонента - обсудить
 
 const validateSchema = Yup.object().shape({
-    name: Yup.string().
-        matches(/^\S/, 'Присутствует пробел вначале поля ввода').
-        max(15, 'Пароль не должен быть длинее 15 символов').
-        required('Обязательное поле'),
-    email: Yup.string().
-        email('Не валидный E-mail').
-        required('Обязательное поле'),
+    name: Yup.string()
+        .matches(/^\S/, 'Присутствует пробел вначале поля ввода')
+        .max(15, 'Пароль не должен быть длинее 15 символов')
+        .required('Обязательное поле'),
+    email: Yup.string()
+        .email('Не валидный E-mail')
+        .required('Обязательное поле'),
     count: Yup.number().required('Обязательное поле'),
     price: Yup.number().required('Обязательное поле'),
 });
