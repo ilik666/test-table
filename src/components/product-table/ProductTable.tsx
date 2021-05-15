@@ -13,21 +13,20 @@ import './ProductTable.scss';
 
 export const ProductTables = () => {
   const {products, isLoading} = useSelector(({productsReducer}: RootState) => productsReducer);
-
   const [viewProducts, setViewProducts] = useState<IProduct[]>([]);
   const [sortProperty, setSortProperty] = useState<ISortProperty<boolean>>({
     name: true,
     price: true,
   });
-
   const dispatch = useDispatch();
   const {search} = useLocation();
 
-  const sortItemsByProperty = (items: IProduct[], property : string) => {
+  const sortItemsByProperty = (items: IProduct[], property: keyof IProduct) => {
       const sortedType = sortProperty[property];
       const direction = sortedType ? 1 : -1;
 
-      const newItems: IProduct[] = [...items].sort((a, b) => {
+      // Решить проблему с any!!!
+      const newItems = [...items].sort((a, b): number => {
         if (a[property] === b[property]) {
               return 0;
           }
@@ -39,7 +38,7 @@ export const ProductTables = () => {
   const togglePropertyProducts = (e: React.MouseEvent<HTMLTableHeaderCellElement>): void => {
     const targetProperty = e.currentTarget.getAttribute('data-sort')!;
 
-    sortItemsByProperty(viewProducts, targetProperty);
+    sortItemsByProperty(viewProducts, targetProperty as keyof IProduct);
 
     setSortProperty((prevProps) => {
       return {
@@ -89,7 +88,9 @@ export const ProductTables = () => {
       </thead>
       <tbody>
       {
-        viewProducts && viewProducts.map((el, idx) => (<ProductTableRowContainer key={el.id} idx={idx + 1} {...el} />))
+        viewProducts && viewProducts.map((el, idx) => (
+          <ProductTableRowContainer key={el.id} idx={idx + 1} {...el} />
+        ))
       }
       </tbody>
     </table>

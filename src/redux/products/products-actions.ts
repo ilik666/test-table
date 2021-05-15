@@ -45,7 +45,7 @@ const deleteProduct = (id: number): ActionsProductTypes => ({
 const fetchProducts = (getProducts: () => Promise<IProduct[]>) => async (dispatch: AppDispatch) => {
   dispatch(fetchRequestProducts);
   try {
-    const response: IProduct[] = await getProducts();
+    const response = await getProducts();
     dispatch(fetchSuccessProducts(response));
   } catch (err) {
     dispatch(fetchFailProducts(err));

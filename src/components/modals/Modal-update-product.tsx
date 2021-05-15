@@ -1,6 +1,7 @@
 import {Modal} from './Modal';
 import * as Yup from 'yup';
 import {Formik, Form} from 'formik';
+// @ts-ignore
 import FormikErrorFocus from 'formik-error-focus';
 import {InputField} from '../forms-controls/InputField';
 
@@ -19,7 +20,7 @@ const validateSchema = Yup.object().shape({
     price: Yup.number().required('Обязательное поле'),
 });
 
-export const ModalUpdateProduct = (props) => {
+export const ModalUpdateProduct = (props: any) => {
     const {
         isOpen,
         onCancel,

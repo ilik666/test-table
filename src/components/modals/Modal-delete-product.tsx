@@ -1,6 +1,6 @@
 import {Modal} from './Modal';
 
-export const ModalDeleteProduct = ({isOpen, onCancel, deleteProduct}) => {
+export const ModalDeleteProduct = ({isOpen, onCancel, deleteProduct}: any) => {
     return (
         <Modal onCancel={onCancel} isOpen={isOpen} title="Are you sure?">
             <p>Are you sure you want to perform this action?</p>

@@ -7,16 +7,20 @@ import {
 } from "./constant-types";
 
 export interface IProduct {
-  id: number | string
+  id: number
   name: string
   count: number
   price: number
 
 }
-export interface IProductViewRow extends IProduct {
+export interface IProductViewRow {
+  id: number
+  name: string
+  count: number
+  price: number | string
   idx: number
-  toggleUpdateProduct: () => void
-  toggleDeleteModal: () => void
+  toggleUpdateProduct?: () => void
+  toggleDeleteModal?: () => void
 }
 
 export interface IProductsState {
@@ -24,7 +28,6 @@ export interface IProductsState {
   isLoading: boolean
   isError: null | ErrorConstructor
 }
-
 
 export interface ISortProperty<T> {
   [key: string]: T
