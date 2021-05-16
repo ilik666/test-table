@@ -22,17 +22,16 @@ export const ProductTables = () => {
   const {search} = useLocation();
 
   const sortItemsByProperty = (items: IProduct[], property: keyof IProduct) => {
-      const sortedType = sortProperty[property];
-      const direction = sortedType ? 1 : -1;
+    const sortedType = sortProperty[property];
+    const direction = sortedType ? 1 : -1;
 
-      // Решить проблему с any!!!
-      const newItems = [...items].sort((a, b): number => {
-        if (a[property] === b[property]) {
-              return 0;
-          }
-        return a[property] > b[property] ? direction : direction * -1;
-      });
-      setViewProducts(newItems);
+    const newItems = [...items].sort((a, b): number => {
+      if (a[property] === b[property]) {
+        return 0;
+      }
+      return a[property] > b[property] ? direction : direction * -1;
+    });
+    setViewProducts(newItems);
   };
 
   const togglePropertyProducts = (e: React.MouseEvent<HTMLTableHeaderCellElement>): void => {
@@ -69,7 +68,7 @@ export const ProductTables = () => {
   }, [dispatch]);
 
   useEffect(() => {
-      filterItems(products);
+    filterItems(products);
   }, [products, search, filterItems]);
 
   if (isLoading) {

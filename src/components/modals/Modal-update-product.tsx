@@ -4,6 +4,8 @@ import {Formik, Form} from 'formik';
 // @ts-ignore
 import FormikErrorFocus from 'formik-error-focus';
 import {InputField} from '../forms-controls/InputField';
+import { IModalUpdate} from "./modal-types";
+import {IProduct} from "../../redux/products/types";
 
 // По сути можно обернуть в useMemo( () => ojb, [])
 // Или хранить за пределами Компонента - обсудить
@@ -20,7 +22,7 @@ const validateSchema = Yup.object().shape({
     price: Yup.number().required('Обязательное поле'),
 });
 
-export const ModalUpdateProduct = (props: any) => {
+export const ModalUpdateProduct = (props: IModalUpdate) => {
     const {
         isOpen,
         onCancel,
@@ -42,10 +44,10 @@ export const ModalUpdateProduct = (props: any) => {
                     price: price ?? '',
                 }}
                 onSubmit={(values) => {
-                    const product = {
+                    const product: IProduct = {
                         id: id ?? Date.now(),
                         name: values?.name,
-                        count: values?.count,
+                        count: values?.count as number,
                         price: values?.price,
                     };
                     submitUpdateProduct(product);
@@ -62,8 +64,8 @@ export const ModalUpdateProduct = (props: any) => {
                         <FormikErrorFocus focusDelay={0} duration={0}/>
 
                         <div className="form-group">
-                            <button className="btn btn-success"
-                                    type="submit">Add/Update
+                            <button className="btn btn-success" type="submit">
+                              Add/Update
                             </button>
                         </div>
                     </Form>
