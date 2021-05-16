@@ -10,7 +10,7 @@ import {IProduct} from "../../redux/products/types";
 
 export const Header = () => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false);
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState<string>('');
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -20,7 +20,7 @@ export const Header = () => {
 
   const handleUrl = (e: React.FormEvent) => {
     e.preventDefault();
-    history.push(`?search=${term.trim()}`);
+    history.push(`/search?=${term.trim()}`);
     setTerm('');
   };
 

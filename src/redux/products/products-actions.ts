@@ -3,7 +3,7 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT,
+  DELETE_PRODUCT, TOGGLE_SORT_PROPERTY,
 } from './constant-types';
 
 import {ActionsProductTypes, IProduct} from "./types";
@@ -30,6 +30,11 @@ const deleteProduct = (id: number): ActionsProductTypes => ({
   type: DELETE_PRODUCT,
   payload: id,
 });
+
+const toggleSortProperty = (sortProp: string): ActionsProductTypes => ({
+  type: TOGGLE_SORT_PROPERTY,
+  payload: sortProp,
+})
 
 /*
 *  Async Actions
@@ -58,6 +63,7 @@ export {
   fetchSuccessProducts,
   updateProduct,
   deleteProduct,
+  toggleSortProperty,
 
   //exp async
   fetchProducts,
