@@ -1,24 +1,19 @@
 import {useRef} from 'react';
 import Portal from '../portal/Portal';
 
+import { IModal } from "./modal-types";
+
 import './Modal.scss';
 // import {useOnClickOutside} from "../../hooks/useOnClickOutside";
 
-interface Modal {
-  isOpen: boolean
-  onCancel: () => void
-  onSubmit?: () => void
-  title?: string
-  children: any
-}
+
 
 export const Modal = ({
     isOpen,
     onCancel,
-    onSubmit,
     title,
     children,
-}: Modal) => {
+}: IModal) => {
     const refContainer = useRef<HTMLDivElement | null>(null);
     // useOnClickOutside(refContainer, onCancel)
     return (

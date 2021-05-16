@@ -10,14 +10,9 @@ export interface IProduct {
   id: number
   name: string
   count: number
-  price: number
-
-}
-export interface IProductViewRow {
-  id: number
-  name: string
-  count: number
   price: number | string
+}
+export interface IProductViewRow extends IProduct{
   idx: number
   toggleUpdateProduct?: () => void
   toggleDeleteModal?: () => void
