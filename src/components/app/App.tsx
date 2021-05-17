@@ -6,8 +6,8 @@ import {getProducts} from "../../services/products-services";
 import {useDispatch} from "react-redux";
 
 import {Switch, Route} from 'react-router-dom'
-import {Search} from "../../Pages/search";
-import {Main} from "../../Pages/main";
+import {Search} from "../../pages/search";
+import {Main} from "../../pages/main";
 
 export const App = () => {
   const dispatch = useDispatch();

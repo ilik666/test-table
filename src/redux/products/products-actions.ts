@@ -3,7 +3,7 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   UPDATE_PRODUCT,
-  DELETE_PRODUCT, TOGGLE_SORT_PROPERTY,
+  DELETE_PRODUCT, TOGGLE_SORT_PROPERTY, SEARCH_TERM_VALUE,
 } from './constant-types';
 
 import {ActionsProductTypes, IProduct} from "./types";
@@ -36,6 +36,11 @@ const toggleSortProperty = (sortProp: string): ActionsProductTypes => ({
   payload: sortProp,
 })
 
+const searchTermValue = (value: string): ActionsProductTypes => ({
+  type: SEARCH_TERM_VALUE,
+  payload: value
+})
+
 /*
 *  Async Actions
 */
@@ -64,6 +69,7 @@ export {
   updateProduct,
   deleteProduct,
   toggleSortProperty,
+  searchTermValue,
 
   //exp async
   fetchProducts,

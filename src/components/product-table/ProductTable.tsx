@@ -8,7 +8,7 @@ import {ProductTableRowContainer} from '../product-table-row/ProductTableRowCont
 
 import './ProductTable.scss';
 
-export const ProductTables = (props: { products: IProduct[] }) => {
+export const ProductTables = ({products}: { products: IProduct[] }) => {
   const dispatch = useDispatch();
 
   const togglePropertyProducts = (e: React.MouseEvent<HTMLTableHeaderCellElement>): void => {
@@ -28,7 +28,7 @@ export const ProductTables = (props: { products: IProduct[] }) => {
       </thead>
       <tbody>
       {
-        props.products && props.products.map((el, idx) => (
+       products && products.map((el, idx) => (
           <ProductTableRowContainer key={el.id} idx={idx + 1} {...el} />
         ))
       }

@@ -2,7 +2,7 @@ import {
   DELETE_PRODUCT,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_REQUEST,
-  FETCH_PRODUCTS_SUCCESS, TOGGLE_SORT_PROPERTY,
+  FETCH_PRODUCTS_SUCCESS, SEARCH_TERM_VALUE, TOGGLE_SORT_PROPERTY,
   UPDATE_PRODUCT
 } from "./constant-types";
 
@@ -22,6 +22,7 @@ export interface IProductsState<T> {
   products: IProduct[] | []
   isLoading: boolean
   isError: null | ErrorConstructor
+  searchTerm: string
   sortKey: string
   sortBy: T
 }
@@ -59,5 +60,16 @@ type TUpdateSortProperty = {
   payload: string
 }
 
+type TSearchTermValue = {
+  type: typeof SEARCH_TERM_VALUE
+  payload: string
+}
+
 export type ActionsProductTypes =
-  | TFetchRequest | TFetchFail | TFetchSuccess | TUpdateProduct | TDeleteProduct | TUpdateSortProperty
+  | TFetchRequest
+  | TFetchFail
+  | TFetchSuccess
+  | TUpdateProduct
+  | TDeleteProduct
+  | TUpdateSortProperty
+  | TSearchTermValue

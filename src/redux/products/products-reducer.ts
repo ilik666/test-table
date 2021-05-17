@@ -3,7 +3,7 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   DELETE_PRODUCT,
-  UPDATE_PRODUCT, TOGGLE_SORT_PROPERTY,
+  UPDATE_PRODUCT, TOGGLE_SORT_PROPERTY, SEARCH_TERM_VALUE,
 } from './constant-types';
 
 import {ActionsProductTypes, IProduct, IProductsState, ISortProperty} from './types'
@@ -12,6 +12,7 @@ const initialState: IProductsState<ISortProperty<boolean>> = {
   products: [],
   isLoading: true,
   isError: null,
+  searchTerm: '',
   sortKey: 'name',
   sortBy: {
     name: false,
@@ -81,6 +82,11 @@ export const productsReducer = ( state = initialState, action: ActionsProductTyp
             [action.payload]: !state.sortBy?.[action.payload]
         }
       };
+    case SEARCH_TERM_VALUE:
+      return {
+        ...state,
+        searchTerm: action.payload
+      }
     default:
       return state;
   }
