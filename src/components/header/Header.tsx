@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {useHistory, useLocation} from 'react-router-dom';
+import React, {useCallback, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import {searchTermValue, updateProduct} from '../../redux/products/products-actions';
 import {useToggle} from '../../hooks/useToggle';
@@ -18,15 +18,11 @@ export const Header = () => {
     setTerm(e.target.value.trim());
   };
 
-  const {search} = useLocation()
-
-  useEffect(() => {
-    dispatch(searchTermValue(term))
-  }, [search, dispatch])
-
   const handleUrl = (e: React.FormEvent) => {
     e.preventDefault();
     history.push(`/search?=${term}`);
+    dispatch(searchTermValue(term))
+    setTerm('')
   };
 
   const submitUpdateProduct = useCallback((product: IProduct) => {

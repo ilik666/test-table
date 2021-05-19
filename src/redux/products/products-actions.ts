@@ -36,9 +36,9 @@ const toggleSortProperty = (sortProp: string): ActionsProductTypes => ({
   payload: sortProp,
 })
 
-const searchTermValue = (value: string): ActionsProductTypes => ({
+const searchTermValue = (trim: string): ActionsProductTypes => ({
   type: SEARCH_TERM_VALUE,
-  payload: value
+  payload: trim
 })
 
 /*

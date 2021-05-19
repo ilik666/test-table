@@ -16,6 +16,7 @@ export interface IProductViewRow extends IProduct{
   idx: number
   toggleUpdateProduct?: () => void
   toggleDeleteModal?: () => void
+  toggleViewModal?: () => void
 }
 
 export interface IProductsState<T> {
