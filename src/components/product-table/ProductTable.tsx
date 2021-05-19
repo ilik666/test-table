@@ -1,15 +1,18 @@
 import React from "react";
+
 import {toggleSortProperty} from '../../redux/products/products-actions';
 import {IProduct} from "../../redux/products/types";
 
 import {useDispatch, useSelector} from 'react-redux';
+import {getIsLoading, getSortBy} from "../../redux/products/selectors";
 
 import {ProductTableRowContainer} from '../product-table-row/ProductTableRowContainer';
 
+import classNames from 'classnames'
 import './ProductTable.scss';
-import {getIsLoading} from "../../redux/products/selectors";
 
 export const ProductTables = ({products}: { products: IProduct[] }) => {
+  const sortByNames = useSelector(getSortBy)
   const isLoadingStore = useSelector(getIsLoading)
   const dispatch = useDispatch();
 
@@ -25,8 +28,14 @@ export const ProductTables = ({products}: { products: IProduct[] }) => {
       <thead>
       <tr>
         <th>#</th>
-        <th data-sort="name" onClick={togglePropertyProducts}>Name</th>
-        <th data-sort="price" onClick={togglePropertyProducts}>Price</th>
+        <th
+          data-sort="name"
+          className={classNames('default', {'active': sortByNames.name})}
+          onClick={togglePropertyProducts}>Name</th>
+        <th
+          data-sort="price"
+          className={classNames('default', {'active': sortByNames.price})}
+          onClick={togglePropertyProducts}>Price</th>
         <th>Actions</th>
       </tr>
       </thead>

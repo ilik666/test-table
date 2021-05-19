@@ -8,6 +8,9 @@ const sortBy = (state: RootState) => state.productsReducer.sortBy;
 const searchTerm = (state: RootState) => state.productsReducer.searchTerm;
 const isLoading = (state: RootState) => state.productsReducer.isLoading;
 
+export const getSortBy = createSelector(
+  sortBy, (sortItems) => sortItems
+)
 export const getIsLoading = createSelector(
   isLoading, (state) => state
 )

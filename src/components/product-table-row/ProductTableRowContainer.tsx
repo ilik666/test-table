@@ -38,6 +38,7 @@ export const ProductTableRowContainer = (props: IProductViewRow) => {
         <p><b>Count</b>: {props.count}</p>
         <p><b>Price</b>: {refreshFormatPrice(+props.price)}</p>
       </Modal>
+
       <ModalUpdateProduct submitUpdateProduct={submitUpdateProduct}
                           isOpen={visibleUpdateModal}
                           onCancel={setVisibleUpdateModal} {...props}
