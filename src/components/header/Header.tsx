@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {updateProduct} from '../../redux/products/products-actions';
+import {searchTermValue, updateProduct} from '../../redux/products/products-actions';
 import {useToggle} from '../../hooks/useToggle';
 import {ModalUpdateProduct} from '../modals/Modal-update-product';
 
@@ -15,13 +15,14 @@ export const Header = () => {
   const history = useHistory();
 
   const handleSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTerm(e.target.value);
+    setTerm(e.target.value.trim());
   };
 
   const handleUrl = (e: React.FormEvent) => {
     e.preventDefault();
-    history.push(`?search=${term.trim()}`);
-    setTerm('');
+    history.push(`/search?=${term}`);
+    dispatch(searchTermValue(term))
+    setTerm('')
   };
 
   const submitUpdateProduct = useCallback((product: IProduct) => {

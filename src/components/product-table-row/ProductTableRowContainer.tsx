@@ -14,10 +14,12 @@ import {ModalUpdateProduct} from '../modals/Modal-update-product';
 import {useToggle} from '../../hooks/useToggle';
 import {useCallback} from 'react';
 import {IProduct, IProductViewRow} from "../../redux/products/types";
+import {Modal} from "../modals/Modal";
 
 export const ProductTableRowContainer = (props: IProductViewRow) => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false);
   const [visibleDeleteModal, setVisibleDeleteModal] = useToggle(false);
+  const [visibleVisibleModal, setVisibleVisibleModal] = useToggle(false);
 
   const dispatch = useDispatch();
 
@@ -31,6 +33,12 @@ export const ProductTableRowContainer = (props: IProductViewRow) => {
 
   return (
     <>
+      <Modal isOpen={visibleVisibleModal} onCancel={setVisibleVisibleModal} title={props.name}>
+        <p><b>Name</b>: {props.name}</p>
+        <p><b>Count</b>: {props.count}</p>
+        <p><b>Price</b>: {refreshFormatPrice(+props.price)}</p>
+      </Modal>
+
       <ModalUpdateProduct submitUpdateProduct={submitUpdateProduct}
                           isOpen={visibleUpdateModal}
                           onCancel={setVisibleUpdateModal} {...props}
@@ -42,6 +50,7 @@ export const ProductTableRowContainer = (props: IProductViewRow) => {
                           deleteProduct={handleDeleteProduct} />
 
       <ProductTableRow {...props} price={refreshFormatPrice(+props.price)}
+                       toggleViewModal={setVisibleVisibleModal}
                        toggleUpdateProduct={setVisibleUpdateModal}
                        toggleDeleteModal={setVisibleDeleteModal}/>
     </>

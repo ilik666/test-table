@@ -3,15 +3,21 @@ import {
   FETCH_PRODUCTS_REQUEST,
   FETCH_PRODUCTS_SUCCESS,
   DELETE_PRODUCT,
-  UPDATE_PRODUCT,
+  UPDATE_PRODUCT, TOGGLE_SORT_PROPERTY, SEARCH_TERM_VALUE,
 } from './constant-types';
 
-import {ActionsProductTypes, IProduct, IProductsState} from './types'
+import {ActionsProductTypes, IProduct, IProductsState, ISortProperty} from './types'
 
-const initialState: IProductsState = {
+const initialState: IProductsState<ISortProperty> = {
   products: [],
   isLoading: true,
   isError: null,
+  searchTerm: '',
+  sortKey: 'name',
+  sortBy: {
+    name: false,
+    price: false,
+  }
 };
 
 const updateProduct = (products: IProduct[], product: IProduct, idx: number): IProduct[] => {
@@ -34,8 +40,7 @@ const updateStateProducts = (products: IProduct[], product: IProduct): IProduct[
   return updateProduct(products, product, idx);
 };
 
-export const productsReducer = ( state = initialState, action: ActionsProductTypes): IProductsState => {
-
+export const productsReducer = ( state = initialState, action: ActionsProductTypes) => {
   switch (action.type) {
     case FETCH_PRODUCTS_REQUEST :
       return {
@@ -66,8 +71,22 @@ export const productsReducer = ( state = initialState, action: ActionsProductTyp
     case DELETE_PRODUCT:
       return {
         ...state,
-        products: [...state.products.filter((el: IProduct) => el.id !== action.payload)],
+        products: [...state.products.filter((el) => el?.id !== action.payload)],
       };
+    case TOGGLE_SORT_PROPERTY:
+      return {
+        ...state,
+        sortKey: action.payload,
+        sortBy: {
+          ...state.sortBy,
+            [action.payload]: !state.sortBy?.[action.payload]
+        }
+      };
+    case SEARCH_TERM_VALUE:
+      return {
+        ...state,
+        searchTerm: action.payload
+      }
     default:
       return state;
   }

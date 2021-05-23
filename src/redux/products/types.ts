@@ -2,7 +2,7 @@ import {
   DELETE_PRODUCT,
   FETCH_PRODUCTS_FAIL,
   FETCH_PRODUCTS_REQUEST,
-  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_SUCCESS, SEARCH_TERM_VALUE, TOGGLE_SORT_PROPERTY,
   UPDATE_PRODUCT
 } from "./constant-types";
 
@@ -16,16 +16,20 @@ export interface IProductViewRow extends IProduct{
   idx: number
   toggleUpdateProduct?: () => void
   toggleDeleteModal?: () => void
+  toggleViewModal?: () => void
 }
 
-export interface IProductsState {
+export interface IProductsState<T> {
   products: IProduct[] | []
   isLoading: boolean
   isError: null | ErrorConstructor
+  searchTerm: string
+  sortKey: string
+  sortBy: T
 }
 
-export interface ISortProperty<T> {
-  [key: string]: T
+export interface ISortProperty {
+  [key: string]: boolean | null
 }
 
 type TFetchRequest = {
@@ -52,4 +56,21 @@ type TDeleteProduct = {
   payload: number
 }
 
-export type ActionsProductTypes = TFetchRequest | TFetchFail | TFetchSuccess | TUpdateProduct | TDeleteProduct
+type TUpdateSortProperty = {
+  type: typeof TOGGLE_SORT_PROPERTY
+  payload: string
+}
+
+type TSearchTermValue = {
+  type: typeof SEARCH_TERM_VALUE
+  payload: string
+}
+
+export type ActionsProductTypes =
+  | TFetchRequest
+  | TFetchFail
+  | TFetchSuccess
+  | TUpdateProduct
+  | TDeleteProduct
+  | TUpdateSortProperty
+  | TSearchTermValue
