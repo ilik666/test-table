@@ -5,12 +5,13 @@ import {InputField} from '../forms-controls/InputField';
 import {Field} from "../forms-controls/Field";
 import {IModalUpdate} from "./modal-types";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllCities, getAllCountries, getFilterCities} from "../../redux/delivery/selectors";
+import {getAllCountries, getFilterCities} from "../../redux/delivery/selectors";
 
 // @ts-ignore
 import FormikErrorFocus from 'formik-error-focus';
-import React, {ChangeEvent, useCallback, useState} from "react";
+import React, {useCallback, useState} from "react";
 import {typeSortCity} from "../../redux/delivery/delivery-actions";
+import {SelectField} from "../forms-controls/SelectField";
 
 // По сути можно обернуть в useMemo( () => ojb, [])
 // Или хранить за пределами Компонента - обсудить
@@ -34,30 +35,41 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
   const dispatch = useDispatch()
 
   const {isOpen, onCancel, submitUpdateProduct, id, name, count, price, title = 'Новый продукт'} = props;
+  const [deliveryView, setDeliveryView] = useState({
+    notDelivery: true,
+    cities: false,
+    countries: false
+  })
 
-  // const [deliveryView, setDeliveryView] = useState({
-  //   notDelivery: true,
-  //   cities: false,
-  //   countries: false
-  // })
+  const handleDelivery = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const typeDelivery = e.target.value as '-' | 'cities' | 'countries'
 
-  /// НЕ понятно почитать
-  // const handleDelivery = (e: React.ChangeEvent<HTMLInputElement> ) => {
-  //   const type = e.target.value as keyof boolean
-  //   setDeliveryView( state => {
-  //     for(let key in state) {
-  //       state[key as keyof key] = false
-  //     }
-  //     return state
-  //   })
-    // setDeliveryView( (delivery) => ({
-    //   ...delivery,
-    //   [type]: !delivery[type]
-    // }))
-  // }
+    setDeliveryView((state)  => {
+      dispatch(typeSortCity('all'))
+      switch (typeDelivery) {
+        case '-':
+          return Object.fromEntries(
+                Object.entries(state)
+                    .map(([key]) => [key, false]) ) as typeof state
+        default:
+          return {
+            ...Object.fromEntries(
+                Object.entries(state)
+                    .map(([key]) => [key, false]) ) as typeof state,
+            [typeDelivery]: true
+          }
+      }
+    })
+  }
 
-  const handleSortCities = useCallback((e: React.FormEvent<HTMLInputElement>) => {
-    dispatch(typeSortCity(e.currentTarget.value))
+  const handleSortCities = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setDeliveryView( state => {
+      return {
+        ...state,
+        ['cities']: true
+      } as typeof state
+    })
+    dispatch(typeSortCity(e.target.value))
   }, [dispatch])
 
   return (
@@ -91,49 +103,26 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
                 <InputField label="Count" name="count" type="number"/>
                 <InputField label="Price" name="price" type="number"/>
 
-                <div className="form-group">
-                  <select name='typeDelivery' className='form-control'>
-                    <option value="notDelivery"> - </option>
-                    <option value="countries">Страна</option>
-                    <option value="cities">Город</option>
-                  </select>
-                </div>
+                <SelectField name='typeDelivery' options={['-', 'countries', 'cities']} handleValue={handleDelivery}/>
 
                 <div className="form-group">
-                  { Object.keys(countries)?.map((country, idx) => {
-                      return (
-                          <Field
-                              key={countries[country]}
-                              name='country'
-                              type='radio'
-                              id={country + (idx + 1)}
-                              value={country}
-                              label={countries[country]}
-                              handleChange={handleSortCities} />
-                      )
-                    }) }
+                  {deliveryView.countries && Object.keys(countries)?.map((country, idx) => {
+                    return (<Field
+                            key={countries[country]}
+                            name='countries'
+                            type='radio'
+                            id={country + (idx + 1)}
+                            value={country}
+                            label={countries[country]}
+                            handleChange={handleSortCities}/>
+                    )
+                  })}
                 </div>
-                <div className="form-group">
-                  <Field
-                      id='all-cities'
-                      name='city'
-                      type='checkbox'
-                      value='All'
-                      label='All'
-                      handleChange={() => {}} />
-                  { filterCities.map( el => {
-                      return (
-                          <Field
-                              key={el}
-                              name='city'
-                              type='checkbox'
-                              id={el}
-                              value={el}
-                              label={el}
-                              handleChange={() => {}} />
-                      )
-                    }) }
-                </div>
+
+                { (deliveryView.cities || (deliveryView.countries && deliveryView.cities)) &&
+                  <div className="form-group">
+                    {filterCities.map(el => (<Field key={el} name='city' type='checkbox' id={el} value={el} label={el} handleChange={() => {}}/> )) }
+                </div> }
 
                 <FormikErrorFocus focusDelay={0} duration={0}/>
 
