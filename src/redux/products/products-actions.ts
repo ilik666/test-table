@@ -62,6 +62,7 @@ const fetchProducts = (getProducts: () => Promise<IProduct[]>) => async (dispatc
   }
 };
 
+
 export {
   fetchRequestProducts,
   fetchFailProducts,

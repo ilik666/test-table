@@ -28,8 +28,8 @@ export interface IProductsState<T> {
   sortBy: T
 }
 
-export interface ISortProperty<T> {
-  [key: string]: T | null
+export interface ISortProperty {
+  [key: string]: boolean | null
 }
 
 type TFetchRequest = {

@@ -10,7 +10,7 @@ import {IProduct} from "../../redux/products/types";
 
 export const Header = () => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false);
-  const [term, setTerm] = useState<string>('');
+  const [term, setTerm] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
 

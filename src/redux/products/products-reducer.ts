@@ -8,7 +8,7 @@ import {
 
 import {ActionsProductTypes, IProduct, IProductsState, ISortProperty} from './types'
 
-const initialState: IProductsState<ISortProperty<boolean>> = {
+const initialState: IProductsState<ISortProperty> = {
   products: [],
   isLoading: true,
   isError: null,
