@@ -1,20 +1,19 @@
 import {ProductTableRow} from './ProductTableRow';
-import {ModalDeleteProduct} from '../modals/Modal-delete-product';
-
+import {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {
-  deleteProduct,
-  updateProduct,
-} from '../../redux/products/products-actions';
+
+import {IProduct, IProductViewRow} from "../../redux/products/types";
+import {ProductActionsCreator} from "../../redux/products/products-actions";
 
 import {refreshFormatPrice} from '../../helpers/helpers';
 
-import './ProductTableRow.scss';
+import {ModalDeleteProduct} from '../modals/Modal-delete-product';
 import {ModalUpdateProduct} from '../modals/Modal-update-product';
 import {useToggle} from '../../hooks/useToggle';
-import {useCallback} from 'react';
-import {IProduct, IProductViewRow} from "../../redux/products/types";
 import {Modal} from "../modals/Modal";
+
+import './ProductTableRow.scss';
+
 
 export const ProductTableRowContainer = (props: IProductViewRow) => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false);
@@ -24,11 +23,11 @@ export const ProductTableRowContainer = (props: IProductViewRow) => {
   const dispatch = useDispatch();
 
   const submitUpdateProduct = useCallback((product: IProduct) => {
-    dispatch(updateProduct(product));
+    dispatch(ProductActionsCreator.updateProduct(product));
   }, [dispatch]);
 
   const handleDeleteProduct = useCallback(() => {
-    dispatch(deleteProduct(props.id));
+    dispatch(ProductActionsCreator.deleteProduct(props.id));
   }, [dispatch, props.id]);
 
   return (

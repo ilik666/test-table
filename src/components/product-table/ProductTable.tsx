@@ -1,6 +1,5 @@
 import React from "react";
 
-import {toggleSortProperty} from '../../redux/products/products-actions';
 import {IProduct} from "../../redux/products/types";
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,6 +9,7 @@ import {ProductTableRowContainer} from '../product-table-row/ProductTableRowCont
 
 import classNames from 'classnames'
 import './ProductTable.scss';
+import {ProductActionsCreator} from "../../redux/products/products-actions";
 
 export const ProductTables = ({products}: { products: IProduct[] }) => {
   const sortByNames = useSelector(getSortBy)
@@ -18,7 +18,7 @@ export const ProductTables = ({products}: { products: IProduct[] }) => {
 
   const togglePropertyProducts = (e: React.MouseEvent<HTMLTableHeaderCellElement>): void => {
     const targetProperty = e.currentTarget.getAttribute('data-sort')!;
-    dispatch(toggleSortProperty(targetProperty))
+    dispatch(ProductActionsCreator.toggleSortProperty(targetProperty))
   };
   if(isLoadingStore) {
     return  <h1>Loading...</h1>

@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {searchTermValue, updateProduct} from '../../redux/products/products-actions';
 import {useToggle} from '../../hooks/useToggle';
 import {ModalUpdateProduct} from '../modals/Modal-update-product';
 
 import './Header.scss';
 import {IProduct} from "../../redux/products/types";
+import {ProductActionsCreator} from "../../redux/products/products-actions";
 
 export const Header = () => {
   const [visibleUpdateModal, setVisibleUpdateModal] = useToggle(false);
@@ -21,12 +21,12 @@ export const Header = () => {
   const handleUrl = (e: React.FormEvent) => {
     e.preventDefault();
     history.push(`/search?=${term}`);
-    dispatch(searchTermValue(term))
+    dispatch(ProductActionsCreator.searchTermValue(term))
     setTerm('')
   };
 
   const submitUpdateProduct = useCallback((product: IProduct) => {
-    dispatch(updateProduct(product));
+    dispatch(ProductActionsCreator.updateProduct(product));
   }, [dispatch]);
 
   return (

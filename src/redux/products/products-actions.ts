@@ -1,45 +1,18 @@
-import {
-  FETCH_PRODUCTS_FAIL,
-  FETCH_PRODUCTS_REQUEST,
-  FETCH_PRODUCTS_SUCCESS,
-  UPDATE_PRODUCT,
-  DELETE_PRODUCT, TOGGLE_SORT_PROPERTY, SEARCH_TERM_VALUE,
-} from './constant-types';
-
-import {ActionsProductTypes, IProduct} from "./types";
+import {IProduct} from "./types";
 import {AppDispatch} from "../store";
 
-const fetchRequestProducts: ActionsProductTypes = {type: FETCH_PRODUCTS_REQUEST};
+export const ProductActionsCreator = {
+  fetchRequestProducts: () => ({type: 'FETCH_PRODUCTS_REQUEST'}) as const,
+  fetchFailProducts: (err: ErrorConstructor) => ({type: 'FETCH_PRODUCTS_FAIL', payload: err} as const),
+  fetchSuccessProducts: (products: IProduct[]) => ({ type: 'FETCH_PRODUCTS_SUCCESS', payload: products } as const),
+  updateProduct: (product: IProduct) => ({  type: 'UPDATE_PRODUCT', payload: product} as const),
+  deleteProduct: (id: number) => ({ type: 'DELETE_PRODUCT', payload: id } as const),
+  toggleSortProperty: (sortProp: string) => ({ type: 'TOGGLE_SORT_PROPERTY',payload: sortProp} as const),
+  searchTermValue: (trim: string) => ({type: 'SEARCH_TERM_VALUE',payload: trim} as const)
+}
 
-const fetchFailProducts = (err: ErrorConstructor): ActionsProductTypes => ({
-  type: FETCH_PRODUCTS_FAIL,
-  payload: err,
-});
-
-const fetchSuccessProducts = (products: IProduct[]): ActionsProductTypes => ({
-  type: FETCH_PRODUCTS_SUCCESS,
-  payload: products,
-});
-
-const updateProduct = (product: IProduct): ActionsProductTypes => ({
-  type: UPDATE_PRODUCT,
-  payload: product,
-});
-
-const deleteProduct = (id: number): ActionsProductTypes => ({
-  type: DELETE_PRODUCT,
-  payload: id,
-});
-
-const toggleSortProperty = (sortProp: string): ActionsProductTypes => ({
-  type: TOGGLE_SORT_PROPERTY,
-  payload: sortProp,
-})
-
-const searchTermValue = (trim: string): ActionsProductTypes => ({
-  type: SEARCH_TERM_VALUE,
-  payload: trim
-})
+export type InferProductActions<T> = T extends {[key: string]: infer U} ? U : never
+export type ProductActionTypes = ReturnType<InferProductActions<typeof ProductActionsCreator>>
 
 /*
 *  Async Actions
@@ -53,25 +26,17 @@ const searchTermValue = (trim: string): ActionsProductTypes => ({
 // }
 
 const fetchProducts = (getProducts: () => Promise<IProduct[]>) => async (dispatch: AppDispatch) => {
-  dispatch(fetchRequestProducts);
+  dispatch(ProductActionsCreator.fetchRequestProducts());
   try {
-    const response = await getProducts();
-    dispatch(fetchSuccessProducts(response));
+    const response: IProduct[] = await getProducts();
+    dispatch(ProductActionsCreator.fetchSuccessProducts(response));
   } catch (err) {
-    dispatch(fetchFailProducts(err));
+    dispatch(ProductActionsCreator.fetchFailProducts(err));
   }
 };
 
 
 export {
-  fetchRequestProducts,
-  fetchFailProducts,
-  fetchSuccessProducts,
-  updateProduct,
-  deleteProduct,
-  toggleSortProperty,
-  searchTermValue,
-
   //exp async
   fetchProducts,
 };
