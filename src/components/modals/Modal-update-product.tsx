@@ -46,6 +46,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
 
     setDeliveryView((state)  => {
       dispatch(typeSortCity('all'))
+      
       switch (typeDelivery) {
         case '-':
           return Object.fromEntries(
@@ -66,7 +67,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
     setDeliveryView( state => {
       return {
         ...state,
-        ['cities']: true
+        'cities': true
       } as typeof state
     })
     dispatch(typeSortCity(e.target.value))
