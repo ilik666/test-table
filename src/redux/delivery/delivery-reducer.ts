@@ -1,5 +1,5 @@
-import {ActionDeliveryTypes, Cities, Countries} from "./types";
-import {SORT_CITIES} from "./constant-types";
+import {Cities, Countries} from "./types";
+import {DeliveryActionTypes} from "../store";
 
 const initialState = {
   sortedCities: 'all' as string,
@@ -17,9 +17,9 @@ const initialState = {
 
 export type DeliveryType = typeof initialState
 
-export const deliveryReducer = (state: DeliveryType = initialState, action: ActionDeliveryTypes) => {
+export const deliveryReducer = (state: DeliveryType = initialState, action: DeliveryActionTypes) => {
   switch (action.type) {
-    case SORT_CITIES:
+    case 'SORT_CITIES':
       return  {
         ...state,
         sortedCities: action.payload,

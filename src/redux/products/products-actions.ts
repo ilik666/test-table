@@ -11,8 +11,6 @@ export const ProductActionsCreator = {
   searchTermValue: (trim: string) => ({type: 'SEARCH_TERM_VALUE',payload: trim} as const)
 }
 
-export type InferProductActions<T> = T extends {[key: string]: infer U} ? U : never
-export type ProductActionTypes = ReturnType<InferProductActions<typeof ProductActionsCreator>>
 
 /*
 *  Async Actions
@@ -28,7 +26,7 @@ export type ProductActionTypes = ReturnType<InferProductActions<typeof ProductAc
 const fetchProducts = (getProducts: () => Promise<IProduct[]>) => async (dispatch: AppDispatch) => {
   dispatch(ProductActionsCreator.fetchRequestProducts());
   try {
-    const response: IProduct[] = await getProducts();
+    const response = await getProducts();
     dispatch(ProductActionsCreator.fetchSuccessProducts(response));
   } catch (err) {
     dispatch(ProductActionsCreator.fetchFailProducts(err));

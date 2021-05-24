@@ -1,1 +1,0 @@
-export const SORT_CITIES = 'SORT_CITIES'

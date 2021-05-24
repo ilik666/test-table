@@ -1,5 +1,5 @@
 import {IProduct, IProductsState, ISortProperty} from './types'
-import {ProductActionTypes} from "./products-actions";
+import {ProductActionTypes} from "../store";
 
 const initialState: IProductsState<ISortProperty> = {
   products: [],

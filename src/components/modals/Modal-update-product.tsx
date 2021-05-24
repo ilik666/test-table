@@ -10,8 +10,8 @@ import {getAllCountries, getFilterCities} from "../../redux/delivery/selectors";
 // @ts-ignore
 import FormikErrorFocus from 'formik-error-focus';
 import React, {useCallback, useState} from "react";
-import {typeSortCity} from "../../redux/delivery/delivery-actions";
 import {SelectField} from "../forms-controls/SelectField";
+import {DeliveryActionsCreator} from "../../redux/delivery/delivery-actions";
 
 // По сути можно обернуть в useMemo( () => ojb, [])
 // Или хранить за пределами Компонента - обсудить
@@ -45,7 +45,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
     const typeDelivery = e.target.value as '-' | 'cities' | 'countries'
 
     setDeliveryView((state)  => {
-      dispatch(typeSortCity('all'))
+      dispatch(DeliveryActionsCreator.typeSortCity('all'))
       
       switch (typeDelivery) {
         case '-':
@@ -70,7 +70,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
         'cities': true
       } as typeof state
     })
-    dispatch(typeSortCity(e.target.value))
+    dispatch(DeliveryActionsCreator.typeSortCity(e.target.value))
   }, [dispatch])
 
   return (
