@@ -2,13 +2,37 @@ import {IProduct} from "./types";
 import {AppDispatch} from "../store";
 
 export const ProductActionsCreator = {
-  fetchRequestProducts: () => ({type: 'FETCH_PRODUCTS_REQUEST'}) as const,
-  fetchFailProducts: (err: ErrorConstructor) => ({type: 'FETCH_PRODUCTS_FAIL', payload: err} as const),
-  fetchSuccessProducts: (products: IProduct[]) => ({ type: 'FETCH_PRODUCTS_SUCCESS', payload: products } as const),
-  updateProduct: (product: IProduct) => ({  type: 'UPDATE_PRODUCT', payload: product} as const),
-  deleteProduct: (id: number) => ({ type: 'DELETE_PRODUCT', payload: id } as const),
-  toggleSortProperty: (sortProp: string) => ({ type: 'TOGGLE_SORT_PROPERTY',payload: sortProp} as const),
-  searchTermValue: (trim: string) => ({type: 'SEARCH_TERM_VALUE',payload: trim} as const)
+  fetchRequestProducts: () => ({type: 'FETCH_PRODUCTS_REQUEST'} as const),
+
+  fetchFailProducts: (err: ErrorConstructor) => ({
+    type: 'FETCH_PRODUCTS_FAIL',
+    payload: err
+  } as const),
+
+  fetchSuccessProducts: (products: IProduct[]) => ({
+    type: 'FETCH_PRODUCTS_SUCCESS',
+    payload: products
+  } as const),
+
+  updateProduct: (product: IProduct) => ({
+    type: 'UPDATE_PRODUCT',
+    payload: product
+  } as const),
+
+  deleteProduct: (id: number) => ({
+    type: 'DELETE_PRODUCT',
+    payload: id
+  } as const),
+
+  toggleSortProperty: (sortProp: string) => ({
+    type: 'TOGGLE_SORT_PROPERTY',
+    payload: sortProp
+  } as const),
+
+  searchTermValue: (trim: string) => ({
+    type: 'SEARCH_TERM_VALUE',
+    payload: trim
+  } as const)
 }
 
 

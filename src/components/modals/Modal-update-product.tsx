@@ -41,6 +41,12 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
     countries: false
   })
 
+  function resetDefaultValue <T extends object>(obj: T): T  {
+    return Object.fromEntries(
+        Object.entries(obj)
+            .map(([key]) => [key, false]) ) as typeof obj
+  }
+
   const handleDelivery = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const typeDelivery = e.target.value as '-' | 'cities' | 'countries'
 
@@ -49,14 +55,10 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
       
       switch (typeDelivery) {
         case '-':
-          return Object.fromEntries(
-                Object.entries(state)
-                    .map(([key]) => [key, false]) ) as typeof state
+          return resetDefaultValue(state)
         default:
           return {
-            ...Object.fromEntries(
-                Object.entries(state)
-                    .map(([key]) => [key, false]) ) as typeof state,
+            ...resetDefaultValue(state),
             [typeDelivery]: true
           }
       }
@@ -68,7 +70,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
       return {
         ...state,
         'cities': true
-      } as typeof state
+      }
     })
     dispatch(DeliveryActionsCreator.typeSortCity(e.target.value))
   }, [dispatch])
