@@ -69,7 +69,7 @@ export const ModalUpdateProduct = (props: IModalUpdate) => {
     setDeliveryView( state => {
       return {
         ...state,
-        'cities': true
+        cities: true
       }
     })
     dispatch(DeliveryActionsCreator.typeSortCity(e.target.value))

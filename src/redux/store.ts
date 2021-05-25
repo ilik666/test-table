@@ -15,11 +15,12 @@ export type RootState = ReturnType<typeof rootReducers>
 export type AppDispatch = typeof store.dispatch
 
 
-export type InferProductActions<T> = T extends {[key: string]: infer U} ? U : never
+export type InferActionsTypes<T> = T extends {[key: string]: infer U} ? U : never
 
-export type DeliveryActionTypes = ReturnType<InferProductActions<typeof DeliveryActionsCreator>>
-export type ProductActionTypes = ReturnType<InferProductActions<typeof ProductActionsCreator>>
+export type DeliveryActionTypes = ReturnType<InferActionsTypes<typeof DeliveryActionsCreator>>
+export type ProductActionTypes = ReturnType<InferActionsTypes<typeof ProductActionsCreator>>
 
 export const store = createStore(rootReducers, composeWithDevTools(applyMiddleware(thunk)))
+
 
 

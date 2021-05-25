@@ -64,7 +64,7 @@ export const productsReducer = (state = initialState, action: ProductActionTypes
     case 'DELETE_PRODUCT':
       return {
         ...state,
-        products: [...state.products.filter((el) => el?.id !== action.payload)],
+        products: state.products.filter((el) => el?.id !== action.payload),
       };
     case 'TOGGLE_SORT_PROPERTY':
       return {
