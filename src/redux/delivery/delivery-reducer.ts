@@ -1,5 +1,9 @@
 import {Cities, Countries} from "./types";
-import {DeliveryActionTypes} from "../store";
+import {DeliveryActionsCreator} from "./delivery-actions";
+import {InferActionsTypes} from "../store";
+
+
+export type DeliveryActionTypes = ReturnType<InferActionsTypes<typeof DeliveryActionsCreator>>
 
 const initialState = {
   sortedCities: 'all' as string,

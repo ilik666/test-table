@@ -1,5 +1,8 @@
 import {IProduct, IProductsState, ISortProperty} from './types'
-import {ProductActionTypes} from "../store";
+import {InferActionsTypes} from "../store";
+import {ProductActionsCreator} from "./products-actions";
+
+export type ProductActionTypes = ReturnType<InferActionsTypes<typeof ProductActionsCreator>>
 
 const initialState: IProductsState<ISortProperty> = {
   products: [],
