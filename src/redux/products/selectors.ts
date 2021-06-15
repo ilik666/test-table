@@ -23,7 +23,7 @@ export const getSortedProducts = createSelector(
 );
 
 export const getSearchProducts = createSelector(
-  [products, searchTerm],
+  [getSortedProducts, searchTerm],
    (products, term :string):IProduct[] => products
        .filter( el => el?.name?.toLowerCase().includes(term.toLowerCase()))
 )
